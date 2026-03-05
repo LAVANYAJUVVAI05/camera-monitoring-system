@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+
+<style>
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(-45deg,#667eea,#764ba2,#6a11cb,#2575fc);
+background-size:400% 400%;
+animation: gradientBG 10s ease infinite;
+font-family:Arial;
+}
+
+@keyframes gradientBG{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.login-box{
+background:rgba(255,255,255,0.2);
+padding:40px;
+border-radius:10px;
+text-align:center;
+color:white;
+width:300px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:none;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:5px;
+background:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#00f2fe;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>Camera Monitoring Login</h2>
+
+<input id="user" placeholder="User ID">
+<input id="pass" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+</div>
+
+<script>
+
+async function login(){
+
+const res = await fetch("/login",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+username:user.value,
+password:pass.value
+})
+})
+
+const data = await res.json()
+
+if(data.success){
+window.location.href="/dashboard"
+}else{
+alert("Invalid Login")
+}
+
+}
+
+</script>
+
+</body>
+</html>
